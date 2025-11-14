@@ -1,0 +1,33 @@
+CONTACT_FIELDS = [
+    "atom_1",
+    "atom_2",
+    "clash",
+    "covalent",
+    "vdw_clash",
+    "vdw",
+    "proximal",
+    "hydrogen_bond",
+    "weak_hydrogen_bond",
+    "halogen_bond",
+    "ionic",
+    "metal_complex",
+    "aromatic",
+    "hydrophobic",
+    "carbonyl",
+    "polar",
+    "weak_polar",
+    "interacting_entities",
+]
+
+CHOSEN_CONTACT_TYPES = [
+    "hydrogen_bond",
+    "weak_hydrogen_bond",
+    "halogen_bond",
+    "ionic",
+    "metal_complex",
+    "aromatic",
+    "hydrophobic",
+    "carbonyl",
+    "polar",
+    "weak_polar",
+]
