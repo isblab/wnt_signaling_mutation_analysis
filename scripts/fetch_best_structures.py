@@ -2,11 +2,10 @@
 # input: json file with protein names and uniprot ids ({protein_name: uniprot_id})
 # output: csv and json files with best structures
 
-import yaml
 import os
+import yaml
 from argparse import ArgumentParser
 from IMP_Toolbox.pre_processing.structure.BestStructure import BestStructures
-from scripts.utils.utils_cardiac import update_config
 
 CONFIG_FILE = "../input/config.yaml"
 BEST_STRUCTURES_CSV = "../output/best_structures.csv"
@@ -41,14 +40,6 @@ if __name__ == "__main__":
         help="Overwrite existing best structures",
     )
 
-    args.add_argument(
-        "--update_config",
-        action="store_true",
-        required=False,
-        default=False,
-        help="Update config file with best structures",
-    )
-
     args = args.parse_args()
 
     config_yaml = yaml.load(
@@ -76,11 +67,3 @@ if __name__ == "__main__":
         print("Best structures already exist. Use --overwrite to overwrite.")
     else:
         print(f"Best structures saved to {os.path.abspath(args.output)}")
-
-    if args.update_config:
-        update_config(
-            input_file=args.input,
-            updates={"best_structures": os.path.abspath(args.output)},
-            mode="replace",
-        )
-        print(f"Config updated with best structures: {os.path.abspath(args.output)}")
