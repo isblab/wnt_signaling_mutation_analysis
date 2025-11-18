@@ -1,0 +1,14 @@
+open 6BD4
+select protein
+del ~sel
+altlocs clean
+addh #1 hbond false
+save ../output/input_to_arpeggio/[NAME].pdb
+close all
+
+open 7DRT
+select protein
+del ~sel
+altlocs clean
+addh #1 hbond false
+save ../output/input_to_arpeggio/[NAME].pdb
