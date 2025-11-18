@@ -39,3 +39,45 @@ arpeggio_results:
     selections:
       - /B/234/
       - /B/354/
+
+  6bd4_hydrogenated:
+    proteins:
+      - FZD4
+    type: wildType
+    selections:
+      - /A/485/
+
+  L485F_6bd4_hydrogenated:
+    proteins:
+      - FZD4
+    type: mutant
+    mutations:
+      - L485F
+    selections:
+      - /A/485/
+
+  7drt_hydrogenated:
+    proteins:
+      - WLS
+    type: wildType
+    selections:
+      - /B/234/
+      - /B/354/
+
+  W234C_7drt_hydrogenated:
+    proteins:
+      - WLS
+    type: mutant
+    mutations:
+      - W234C
+    selections:
+      - /B/234/
+
+  M354T_7drt_hydrogenated:
+    proteins:
+      - WLS
+    type: mutant
+    mutations:
+      - M354T
+    selections:
+      - /B/354/
