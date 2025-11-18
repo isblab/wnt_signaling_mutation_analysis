@@ -2,13 +2,16 @@ open 6BD4
 select protein
 del ~sel
 altlocs clean
+save ../output/processed_structures/[NAME]_clean.pdb
 addh #1 hbond false
-save ../output/input_to_arpeggio/[NAME].pdb
+save ../output/processed_structures/[NAME]_hydrogenated.pdb
 close all
 
 open 7DRT
 select protein
 del ~sel
 altlocs clean
+save ../output/processed_structures/[NAME]_clean.pdb
 addh #1 hbond false
-save ../output/input_to_arpeggio/[NAME].pdb
+save ../output/processed_structures/[NAME]_hydrogenated.pdb
+close all
