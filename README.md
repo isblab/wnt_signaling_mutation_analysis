@@ -115,10 +115,13 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
   ```bash
   python arpeggio_docker_wrapper.py \
-      --i ../input/config.yaml \
-      --o ../output/arpeggio_docker_results/ \
-      --p ../output/processed_structures/
+      -i ../input/config.yaml \
+      -o ../output/arpeggio_docker_results/ \
+      -p ../output/processed_structures/
   ```
+
+- You will find the Arpeggio results in the specified output directory.
+  i.e., `../output/arpeggio_docker_results/`.
 
 > [!NOTE]
 > You need `sudo` privileges to run the docker command.
@@ -129,8 +132,31 @@ Analyzing structural effects of mutations involved in WNT signaling.
 > the mutated residue:
 > - For FZD4, provide selection: `/A/485/`
 > - For WLS, provide selection: `/B/234/` and `/B/354/`
+>
 > See the `input/config.yaml` file for reference.
 
 ### Analyzing changes in inter-atomic interactions
 
-#TODO: Add interaction analysis steps here.
+- Run the following command to analyze changes in inter-atomic interactions
+  between wild-type and mutant structures.
+
+  ```bash
+  python arpeggio_analysis_wrapper.py \
+      -i ../input/config.yaml \
+      -r 6bd4_hydrogenated \
+      -a ../output/arpeggio_docker_results/ \
+      -l residue \
+      -o ../output/ \
+      -c
+  ```
+
+- `r` flag represents `result_head` which is the directory name in the
+  `../output/arpeggio_docker_results/` containing the Arpeggio results.
+
+- `l` flag represents the analysis level. It can be `atom` or `residue`.
+
+- You will find the analysis results (csv file) in the specified output directory.
+  i.e., `../output/pairwise_interactions`.
+
+- If you used `-c` flag, you will also get ChimeraX `cxc` files to visualize the
+  inter-atomic interactions.

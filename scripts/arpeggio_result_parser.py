@@ -8,13 +8,13 @@ Currently supports parsing of:
 - .rings (Aromatic rings found in the structure)
 """
 
+import pandas as pd
 from arpeggio_constants import (
     CONTACTS_FIELDS,
     RI_FIELDS,
     RING_FIELDS,
     ARI_FIELDS,
 )
-import pandas as pd
 
 def parse_contacts(
     file_path: str,

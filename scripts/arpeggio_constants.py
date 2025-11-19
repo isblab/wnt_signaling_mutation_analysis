@@ -217,6 +217,18 @@ PBOND_ATTRIBUTES = {
         "dashes": 6,
         "transparency": 80,
     },
+    "ri": {
+        "color": "lime",
+        "radius": 0.3,
+        "dashes": 30,
+        "transparency": 0,
+    },
+    "ari": {
+        "color": "cornflowerblue",
+        "radius": 0.1,
+        "dashes": 30,
+        "transparency": 0,
+    },
 }
 
 DOCKER_BASE_COMMAND = (
@@ -225,3 +237,5 @@ DOCKER_BASE_COMMAND = (
 )
 
 DOCKER_CONTAINER_PATH = "/run/processed_structures"
+
+MODEL_ID = 1
