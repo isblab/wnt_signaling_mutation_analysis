@@ -1,4 +1,5 @@
 # Refer to https://github.com/harryjubb/arpeggio for more details.
+import os
 
 CONTACTS_FIELDS = [
     "atom_1",
@@ -237,5 +238,16 @@ DOCKER_BASE_COMMAND = (
 )
 
 DOCKER_CONTAINER_PATH = "/run/processed_structures"
+assert os.path.isdir(DOCKER_CONTAINER_PATH), (
+    f"""
+    DOCKER_CONTAINER_PATH '{DOCKER_CONTAINER_PATH}' containing the input
+    structures for Arpeggio does not exist.
+    Please copy the "{os.path.basename(DOCKER_CONTAINER_PATH)}" directory
+    from the output folder in the repository to the {DOCKER_CONTAINER_PATH} path
+    using following command (assuming you are in the `scripts/` directory):
+
+    sudo cp -r ../output/processed_structures {os.path.dirname(DOCKER_CONTAINER_PATH)}
+    """
+)
 
 MODEL_ID = 1
