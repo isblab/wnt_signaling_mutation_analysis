@@ -1,6 +1,6 @@
 import os
-import argparse
 import yaml
+import argparse
 import pandas as pd
 from arpeggio_result_parser import (
     parse_ari,
@@ -18,9 +18,9 @@ from arpeggio_constants import (
     CHOSEN_ARI_TYPES,
     CHOSEN_CONTACT_TYPES,
     CHOSEN_CLASHES,
-    PI_PI_STACKING_TYPES
+    PI_PI_STACKING_TYPES,
+    INTERACTION_DF_COLS
 )
-
 
 def get_interactions(
     ri_df: pd.DataFrame | None = None,
@@ -28,27 +28,41 @@ def get_interactions(
     ari_df: pd.DataFrame | None = None,
     contact_level: str = "residue",
 ) -> pd.DataFrame:
+    """ Combine interactions from contacts, ri, and ari dataframes.
 
-    columns = [
-        "chain_1",
-        "res_1",
-        "atom_1",
-        "chain_2",
-        "res_2",
-        "atom_2",
-        "interaction_type"
-    ]
+    Args:
 
-    combined_df = pd.DataFrame(columns=columns)
+        ri_df (pd.DataFrame | None, optional):
+            Ring-ring interactions dataframe.
+
+        contacts_df (pd.DataFrame | None, optional):
+            Atomic interactions dataframe.
+
+        ari_df (pd.DataFrame | None, optional):
+            Atom-ring interactions dataframe.
+
+        contact_level (str, optional):
+            Contact level: "atom" or "residue".
+
+    Returns:
+
+        pd.DataFrame:
+            DataFrame containing combined interactions.
+    """
+
+    assert contact_level in INTERACTION_DF_COLS, (
+        f"contact_level must be one of {list(INTERACTION_DF_COLS.keys())}."
+    )
+
+    combined_df = pd.DataFrame(columns=INTERACTION_DF_COLS[contact_level])
 
     if contacts_df is not None:
 
         contacts_df = contacts_df.reset_index(drop=True)
-
         combined_df = pd.concat(
             [
                 combined_df,
-                contacts_df[list(set(contacts_df.columns) & set(columns))]
+                contacts_df.filter(INTERACTION_DF_COLS[contact_level])
             ],
             ignore_index=True
         )
@@ -78,7 +92,7 @@ def get_interactions(
         combined_df = pd.concat(
             [
                 combined_df,
-                ri_df[list(set(ri_df.columns) & set(columns))]
+                ri_df.filter(INTERACTION_DF_COLS[contact_level])
             ],
             ignore_index=True
         )
@@ -86,30 +100,17 @@ def get_interactions(
     if ari_df is not None:
 
         ari_df = ari_df.reset_index(drop=True)
-
         combined_df = pd.concat(
             [
                 combined_df,
-                ari_df[list(set(ari_df.columns) & set(columns))]
+                ari_df.filter(INTERACTION_DF_COLS[contact_level])
             ],
             ignore_index=True
         )
 
-    if contact_level == "residue":
-        combined_df = combined_df.drop(columns=["atom_1", "atom_2"])
-        combined_df = combined_df.drop_duplicates().reset_index(drop=True)
+    combined_df = combined_df.drop_duplicates().reset_index(drop=True)
 
     return combined_df
-
-def get_arpeggio_file(
-    arpeggio_dir: str,
-    result_head: str,
-    file_extension: str,
-) -> str:
-
-    return os.path.join(
-        arpeggio_dir, result_head, f"{result_head}.{file_extension}"
-    )
 
 
 if __name__ == "__main__":
@@ -125,7 +126,7 @@ if __name__ == "__main__":
         help="Path to the input configuration file.",
     )
     args.add_argument(
-        "-h",
+        "-r",
         "--result_head",
         type=str,
         required=False,
@@ -140,49 +141,67 @@ if __name__ == "__main__":
         default="../output/arpeggio_docker_results/",
         help="Directory containing Arpeggio results.",
     )
+    args.add_argument(
+        "-l",
+        "--level",
+        type=str,
+        required=False,
+        default="atom",
+        help="Contact level: atom or residue.",
+    )
+    args.add_argument(
+        "-c",
+        "--chimerax_commands",
+        action="store_true",
+        required=False,
+        default=False,
+        help="Whether to generate ChimeraX command files.",
+    )
+    args.add_argument(
+        "-o",
+        "--output_dir",
+        type=str,
+        required=False,
+        default="../output/",
+        help="Output directory.",
+    )
     args = args.parse_args()
 
+    ###########################################################################
+    # Load input configuration
+    ###########################################################################
     with open(args.input_config, 'r') as f:
         config = yaml.safe_load(f)
 
     arpeggio_results = config["arpeggio_results"]
-
     result_metadata = arpeggio_results.get(args.result_head, None)
     if result_metadata is None:
         raise ValueError(
             f"Result head {args.result_head} not found in input configuration."
         )
 
+    # Residue selections that were used for Arpeggio
     selections = []
     for sel in result_metadata.get("selections", []):
         _, chain, res, _ = sel.split("/")
         selections.append((chain, res))
+    res_selections = [res for _chain, res in selections]
 
-    SEL_RES = [res for chain, res in selections]
-
-    proteins = result_metadata.get("proteins", [])
     result_head = args.result_head
-
-    # result_head = "6bd4_hydrogenated"
-    # result_head = "L485F_6bd4_hydrogenated"
-
-    # result_head = "7drt_hydrogenated"
-    # result_head = "W234C_7drt_hydrogenated"
-    # result_head = "M354T_7drt_hydrogenated"
-
-    # SEL_RES = ["485"]
-    # SEL_RES = ["234", "354"]
-
     arpeggio_dir = args.arpeggio_dir
 
-    contacts_path = get_arpeggio_file(
-        arpeggio_dir=arpeggio_dir,
-        result_head=result_head,
-        file_extension="contacts"
+    contacts_path = os.path.join(
+        arpeggio_dir, result_head, f"{result_head}.contacts"
     )
 
-    contacts_df = parse_contacts(file_path=contacts_path, split_atom_col=True)
-    # print(contacts_df.head())
+    ###########################################################################
+    # Parse Arpeggio result files
+    ###########################################################################
+    contacts_df = parse_contacts(
+        file_path=contacts_path,
+        split_atom_col=True
+    )
+    # print(contacts_df)
 
     ri_df = parse_ri(
         file_path=contacts_path.replace(".contacts", ".ri"),
@@ -209,21 +228,23 @@ if __name__ == "__main__":
         ri_df=ri_df,
         contacts_df=contacts_df,
         ari_df=ari_df,
-        contact_level="residue"
+        contact_level=args.level,
     )
 
-    # first residue = selected residue
+    ###########################################################################
+    # first residue is always the selected residue
+    ###########################################################################
     interactions_df_ = pd.DataFrame(columns=interactions_df.columns)
 
     for idx, row in interactions_df.iterrows():
 
-        if row["res_1"] in SEL_RES:
+        if row["res_1"] in res_selections:
             interactions_df_ = pd.concat(
                 [interactions_df_, pd.DataFrame([row])],
                 ignore_index=True
             )
 
-        elif row["res_2"] in SEL_RES:
+        elif row["res_2"] in res_selections:
             new_row = row.copy()
             new_row["chain_1"] = row["chain_2"]
             new_row["res_1"] = row["res_2"]
@@ -237,79 +258,97 @@ if __name__ == "__main__":
                 ignore_index=True
             )
 
-    # merge by residue pairs
-    row_dict = {}
-    for idx, row in interactions_df_.iterrows():
+    ###########################################################################
+    # merge by residue pairs if information is required at residue level
+    ###########################################################################
+    if args.level == "residue":
+        row_dict = {}
+        for idx, row in interactions_df_.iterrows():
 
-        key = (row["chain_1"], row["res_1"], row["chain_2"], row["res_2"])
+            key = (row["chain_1"], row["res_1"], row["chain_2"], row["res_2"])
 
-        if key not in row_dict:
-            row_dict[key] = set()
+            if key not in row_dict:
+                row_dict[key] = set()
 
-        for interaction in row["interaction_type"].split(","):
-            row_dict[key].add(interaction)
+            for interaction in row["interaction_type"].split(","):
+                row_dict[key].add(interaction)
 
-    interactions_df = pd.DataFrame(columns=interactions_df_.columns)
+        interactions_df = pd.DataFrame(columns=interactions_df_.columns)
 
-    for key, interactions in row_dict.items():
-        new_row = {
-            "chain_1": key[0],
-            "res_1": key[1],
-            "chain_2": key[2],
-            "res_2": key[3],
-            "interaction_type": ",".join(sorted(interactions))
-        }
-        interactions_df = pd.concat(
-            [interactions_df, pd.DataFrame([new_row])],
-            ignore_index=True
-        )
+        for key, interactions in row_dict.items():
+            new_row = {
+                "chain_1": key[0],
+                "res_1": key[1],
+                "chain_2": key[2],
+                "res_2": key[3],
+                "interaction_type": ",".join(sorted(interactions))
+            }
+            interactions_df = pd.concat(
+                [interactions_df, pd.DataFrame([new_row])],
+                ignore_index=True
+            )
 
+    ###########################################################################
+    # Formatting and saving interactions dataframe
+    ###########################################################################
     interactions_df = interactions_df.sort_values(
-        by=["chain_1", "res_1", "chain_2", "res_2"]
+        by=INTERACTION_DF_COLS[args.level][:-1]
     ).reset_index(drop=True)
-
-    total_interactions_type = list(set(
-        interaction
-        for sublist in interactions_df["interaction_type"].str.split(",").tolist()
-        for interaction in sublist
-    ))
 
     total_interactions_type = (
         CHOSEN_CONTACT_TYPES + CHOSEN_CLASHES
         + CHOSEN_ARI_TYPES + ["PI-PI_STACKING"]
     )
 
-    # add these as columns with 0/1 values
     for interaction in total_interactions_type:
-        interactions_df[interaction] = interactions_df["interaction_type"].apply(
-            lambda x: 1 if interaction in x.split(",") else 0
+        interactions_df[interaction] = (
+            interactions_df["interaction_type"].apply(
+                lambda x: 1 if interaction in x.split(",") else 0
+            )
         )
+
     del interactions_df["interaction_type"]
 
-    interactions_df = interactions_df[[
-        "chain_1",
-        "res_1",
-        "chain_2",
-        "res_2",
-    ] + sorted(total_interactions_type)]
+    interactions_df = interactions_df[
+        INTERACTION_DF_COLS[args.level][:-1] + sorted(total_interactions_type)
+    ]
+
+    outpath = os.path.join(args.output_dir, "pairwise_interactions")
+    os.makedirs(outpath, exist_ok=True)
 
     interactions_df.to_csv(
-        f"../output/pairwise_interactions/{result_head}_interactions.csv",
+        os.path.join(outpath, f"{result_head}_interactions.csv"),
         index=False
     )
-    # exit()
+    print(f"Pairwise interactions saved in {os.path.abspath(outpath)}.")
 
-    # add_rings(
-    #     rings_df=rings_df,
-    #     save_path=f"../output/input_to_chimerax/{result_head}_markers.cxc"
-    # )
+    ###########################################################################
+    # Generate ChimeraX command files
+    ###########################################################################
+    if not args.chimerax_commands:
+        exit()
 
-    # add_ri(
-    #     ri_df=ri_df,
-    #     save_path=f"../output/input_to_chimerax/{result_head}_ri.cxc"
-    # )
+    outpath = os.path.join(args.output_dir, "input_to_chimerax")
+    os.makedirs(outpath, exist_ok=True)
+
+    add_rings(
+        rings_df=rings_df,
+        save_path=os.path.join(outpath, f"{result_head}_markers.cxc")
+    )
+
+    add_ri(
+        ri_df=ri_df,
+        save_path=os.path.join(outpath, f"{result_head}_ri.cxc")
+    )
 
     add_contacts(
         contacts_df=contacts_df,
-        save_path=f"../output/input_to_chimerax/{result_head}_contacts.cxc"
+        save_path=os.path.join(outpath, f"{result_head}_contacts.cxc")
     )
+
+    add_ari(
+        ari_df=ari_df,
+        save_path=os.path.join(outpath, f"{result_head}_ari.cxc")
+    )
+
+    print(f"ChimeraX command files saved in {os.path.abspath(outpath)}.")

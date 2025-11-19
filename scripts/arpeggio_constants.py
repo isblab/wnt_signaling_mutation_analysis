@@ -46,7 +46,8 @@ CHOSEN_ARI_TYPES = [
     "CARBONPI",
     "CATIONPI",
     "DONORPI",
-    "HALOGENPI"
+    "HALOGENPI",
+    "METSULPHURPI"
 ]
 
 assert set(CHOSEN_CONTACT_TYPES+CHOSEN_CLASHES).issubset(set(CONTACTS_FIELDS)), (
@@ -89,6 +90,25 @@ RING_FIELDS = [
     "ring_residue",
     "ring_centroid",
 ]
+
+INTERACTION_DF_COLS = {
+    "atom": [
+        "chain_1",
+        "res_1",
+        "chain_2",
+        "res_2",
+        "atom_1",
+        "atom_2",
+        "interaction_type",
+    ],
+    "residue": [
+        "chain_1",
+        "res_1",
+        "chain_2",
+        "res_2",
+        "interaction_type",
+    ],
+}
 
 MARKER_COMMAND = "marker #$marker_model_id position $x,$y,$z color $marker_color radius $marker_radius"
 PBOND_COMMAND = "pbond #$spec1#$spec2 color $bond_color radius $bond_radius name $bond_name dashes $bond_dashes"

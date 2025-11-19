@@ -5,41 +5,6 @@ protein_uniprot_map:
 
 arpeggio_results:
 
-  minnesota-november-ten:
-    proteins:
-      - FZD4
-    type: wildType
-    selections:
-      - /A/485/
-
-  vermont-helium-august:
-    proteins:
-      - FZD4
-    type: mutant
-    mutations:
-      - L485F
-    selections:
-      - /A/485/
-
-  three-six-red:
-    proteins:
-      - WLS
-    type: wildType
-    selections:
-      - /B/234/
-      - /B/354/
-
-  september-triple-kitten:
-    proteins:
-      - WLS
-    type: mutant
-    mutations:
-      - W234C
-      - M354T
-    selections:
-      - /B/234/
-      - /B/354/
-
   6bd4_hydrogenated:
     proteins:
       - FZD4
@@ -81,3 +46,38 @@ arpeggio_results:
       - M354T
     selections:
       - /B/354/
+
+  # minnesota-november-ten:
+  #   proteins:
+  #     - FZD4
+  #   type: wildType
+  #   selections:
+  #     - /A/485/
+
+  # vermont-helium-august:
+  #   proteins:
+  #     - FZD4
+  #   type: mutant
+  #   mutations:
+  #     - L485F
+  #   selections:
+  #     - /A/485/
+
+  # three-six-red:
+  #   proteins:
+  #     - WLS
+  #   type: wildType
+  #   selections:
+  #     - /B/234/
+  #     - /B/354/
+
+  # september-triple-kitten:
+  #   proteins:
+  #     - WLS
+  #   type: mutant
+  #   mutations:
+  #     - W234C
+  #     - M354T
+  #   selections:
+  #     - /B/234/
+  #     - /B/354/

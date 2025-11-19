@@ -1,5 +1,6 @@
 from string import Template
 import pandas as pd
+import warnings
 from arpeggio_constants import (
     CHOSEN_CONTACT_TYPES,
     MARKER_COMMAND,
@@ -28,7 +29,7 @@ def save_commands_to_file(save_path: str, commands: list[str]) -> None:
             f.write(command + "\n")
 
 def add_rings(
-    rings_df: pd.DataFrame,
+    rings_df: pd.DataFrame | None = None,
     save_path: str | None = None
 ) -> list[str] | None:
     """ Generate ChimeraX commands to add markers at ring centroids.
@@ -46,6 +47,10 @@ def add_rings(
         list[str] | None:
             List of ChimeraX commands if save_path is None, else None.
     """
+
+    if rings_df is None or rings_df.empty:
+        warnings.warn("No rings found.")
+        return []
 
     command_template = Template(MARKER_COMMAND)
     commands = []
@@ -72,7 +77,7 @@ def add_rings(
     save_commands_to_file(save_path, commands)
 
 def add_ri(
-    ri_df: pd.DataFrame,
+    ri_df: pd.DataFrame | None = None,
     save_path: str | None = None
 ) -> list[str] | None:
     """ Generate ChimeraX commands to add pseudobonds for ring interactions.
@@ -90,6 +95,10 @@ def add_ri(
         list[str] | None:
             List of ChimeraX commands if save_path is None, else None.
     """
+
+    if ri_df is None or ri_df.empty:
+        warnings.warn("No ring interactions found.")
+        return []
 
     command_template = Template(PBOND_COMMAND)
     transparency_template = Template(TRANSPARENCY_COMMAND)
@@ -129,7 +138,7 @@ def add_ri(
     save_commands_to_file(save_path, commands)
 
 def add_contacts(
-    contacts_df: pd.DataFrame,
+    contacts_df: pd.DataFrame | None = None,
     save_path: str | None = None
 ):
     """ Generate ChimeraX commands to add pseudobonds for atomic contacts.
@@ -147,6 +156,10 @@ def add_contacts(
         list[str] | None:
             List of ChimeraX commands if save_path is None, else None.
     """
+
+    if contacts_df is None or contacts_df.empty:
+        warnings.warn("No contacts found.")
+        return []
 
     command_template = Template(PBOND_COMMAND)
     transparency_template = Template(TRANSPARENCY_COMMAND)
@@ -181,7 +194,7 @@ def add_contacts(
             )
             commands.append(command)
 
-    print(sub_model_ids)
+    # print(sub_model_ids)
 
     if save_path is None:
         return commands
@@ -189,7 +202,7 @@ def add_contacts(
     save_commands_to_file(save_path, commands)
 
 def add_ari(
-    ari_df: pd.DataFrame,
+    ari_df: pd.DataFrame | None = None,
     save_path: str | None = None
 ):
     """ Generate ChimeraX commands to add pseudobonds for atom-ring interactions.
@@ -208,6 +221,10 @@ def add_ari(
             List of ChimeraX commands if save_path is None, else None.
     """
 
+    if ari_df is None or ari_df.empty:
+        warnings.warn("No atom-ring interactions found.")
+        return []
+
     command_template = Template(PBOND_COMMAND)
     transparency_template = Template(TRANSPARENCY_COMMAND)
     model_id = 1
@@ -216,7 +233,7 @@ def add_ari(
     sub_model_id = 1
 
     for _, row in ari_df.iterrows():
-        atom_spec = f"{model_id}/{row['chain_a']}:{row['res_a']}@{row['atom']}"
+        atom_spec = f"{model_id}/{row['chain_1']}:{row['res_1']}@{row['atom_1']}"
         ring_marker_id = row["marker_id"]
         ring_spec = f"{MARKER_ATTRIBUTES["model_id"]}/M:{ring_marker_id}@M"
         interaction = row["interaction_type"]
@@ -252,7 +269,7 @@ def add_ari(
         )
         commands.append(command)
 
-    print(sub_model_ids)
+    # print(sub_model_ids)
 
     if save_path is None:
         return commands
