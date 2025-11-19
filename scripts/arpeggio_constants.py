@@ -218,3 +218,10 @@ PBOND_ATTRIBUTES = {
         "transparency": 80,
     },
 }
+
+DOCKER_BASE_COMMAND = (
+    """sudo docker run --rm -v $path_to_mount:$container_path -u `id -u`:`id -g` -it harryjubb/arpeggio python arpeggio.py $input_pdb_path -v -wh
+    """
+)
+
+DOCKER_CONTAINER_PATH = "/run/processed_structures"

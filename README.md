@@ -87,18 +87,49 @@ Analyzing structural effects of mutations involved in WNT signaling.
   the `SCWRL/` directory inside the extracted folder as `<MUTATION>_<filename>.pdb`
   if you uploaded the wild-type structure as `<filename>.pdb`.
 
-#TODO: Add postprocessing steps here.
+- Prepare a ChimeraX script `postprocess.cxc` to postprocess the
+  downloaded mutant PDB files. See the `scripts/postprocess.cxc` file for
+  reference.
+
+> [!IMPORTANT]
+> This step is necessary because Arpeggio does always not properly add hydrogens
+> to the structures. And also, we want to clean up the structures by removing
+> non-protein atoms and cleaning alt-loc atoms.
+
+- Run the postprocessing script in ChimeraX CLI as follows:
+
+  ```
+  runscript /path/to/scripts/postprocess.cxc
+  ```
+
+- This will generate input PDB files required for Arpeggio in the directory
+  `output/processed_structures`.
 
 ### Analyzing inter-atomic interactions using Arpeggio
 
-#TODO: Add Arpeggio analysis steps here.
+- Set up the Arpeggio docker image by following the instructions at
+  [Using the public Docker image (Arpeggio)](https://github.com/harryjubb/arpeggio?tab=readme-ov-file#using-the-public-docker-image).
+
+- We use docker version of Arpeggio to analyze inter-atomic interactions. Run
+  the following command.
+
+  ```bash
+  python arpeggio_docker_wrapper.py \
+      --i ../input/config.yaml \
+      --o ../output/arpeggio_docker_results/ \
+      --p ../output/processed_structures/
+  ```
 
 > [!NOTE]
+> You need `sudo` privileges to run the docker command.
+
+> [!CAUTION]
 > Analysis of all possible interactions may take a long time.
 > You may provide selection as follows to only analyze interactions involving
 > the mutated residue:
 > - For FZD4, provide selection: `/A/485/`
 > - For WLS, provide selection: `/B/234/` and `/B/354/`
+> See the `input/config.yaml` file for reference.
 
 ### Analyzing changes in inter-atomic interactions
 

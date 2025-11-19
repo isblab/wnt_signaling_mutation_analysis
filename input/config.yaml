@@ -11,6 +11,7 @@ arpeggio_results:
     type: wildType
     selections:
       - /A/485/
+    pdb_id: 6bd4
 
   L485F_6bd4_hydrogenated:
     proteins:
@@ -28,6 +29,7 @@ arpeggio_results:
     selections:
       - /B/234/
       - /B/354/
+    pdb_id: 7drt
 
   W234C_7drt_hydrogenated:
     proteins:

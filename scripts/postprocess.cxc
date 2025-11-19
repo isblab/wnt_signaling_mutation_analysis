@@ -1,26 +1,29 @@
 open ../output/missense3d_tm/6bd4_L485F_missense3d_tm/jobs/0xf50020x38f699/SCWRL/L485F_6bd4_hydrogenated.pdb
+rename #1 L485F_6bd4_hydrogenated
 select protein
 del ~sel
 altlocs clean
-save ../output/arpeggio_docker_results/L485F_6bd4_hydrogenated/[NAME]_clean.pdb
+# save ../output/processed_structures/[NAME]_clean.pdb
 addh #1 hbond false
-save ../output/arpeggio_docker_results/L485F_6bd4_hydrogenated/[NAME].pdb
+save ../output/processed_structures/[NAME].pdb
 close all
 
 open ../output/missense3d_tm/7drt_M354T_missense3d_tm/jobs/0x62bc280x6a914b/SCWRL/M354T_7drt_hydrogenated.pdb
+rename #1 M354T_7drt_hydrogenated
 select protein
 del ~sel
 altlocs clean
-save ../output/arpeggio_docker_results/M354T_7drt_hydrogenated/[NAME]_clean.pdb
+# save ../output/processed_structures/[NAME]_clean.pdb
 addh #1 hbond false
-save ../output/arpeggio_docker_results/M354T_7drt_hydrogenated/[NAME].pdb
+save ../output/processed_structures/[NAME].pdb
 close all
 
 open ../output/missense3d_tm/7drt_W234C_missense3d_tm/jobs/0x9a9ca90x6fdad/SCWRL/W234C_7drt_hydrogenated.pdb
+rename #1 W234C_7drt_hydrogenated
 select protein
 del ~sel
 altlocs clean
-save ../output/arpeggio_docker_results/W234C_7drt_hydrogenated/[NAME]_clean.pdb
+# save ../output/processed_structures/[NAME]_clean.pdb
 addh #1 hbond false
-save ../output/arpeggio_docker_results/W234C_7drt_hydrogenated/[NAME].pdb
+save ../output/processed_structures/[NAME].pdb
 close all
