@@ -18,14 +18,24 @@ def submit_ddmut_job(
     """ Submit a DDMut job for a single mutation
 
     Args:
-        pdb_path (str): Path to the PDB file
-        mutation (str): Mutation in the format 'A123B' where A is the original
-            residue, 123 is the position, and B is the new residue
-        chain_id (str): Chain ID in the PDB in which the mutation is to be made
-        reverse_mutation (bool, optional): Whether to perform reverse mutation
+
+        pdb_path (str):
+            Path to the PDB file
+
+        mutation (str):
+            Mutation in the format 'A123B' where A is the original residue,
+            123 is the position, and B is the new residue
+
+        chain_id (str):
+            Chain ID in the PDB in which the mutation is to be made
+
+        reverse_mutation (bool, optional):
+            Whether to perform reverse mutation. Defaults to False.
 
     Returns:
-        str: Job ID of the submitted DDMut job
+
+        job_id (str):
+            Job ID of the submitted DDMut job
     """
 
     ddmut_api_url = f"{DDMUT_URL}/api/prediction_single"
@@ -52,7 +62,8 @@ def submit_ddmut_job(
 
     if response.status_code != 200:
         raise Exception(
-            f"DDMut job submission failed with status code {response.status_code}: {response.text}"
+            f"""DDMut job submission failed with status code
+            {response.status_code}: {response.text}"""
         )
 
     job_id = response.json().get("job_id", None)
@@ -66,11 +77,16 @@ def get_ddmut_result(
     """ Retrieve the result of a DDMut job
 
     Args:
-        job_id (str): Job ID of the DDMut job
-        wait_time (int, optional): Time to wait (in seconds) before retrieving the result
+
+        job_id (str):
+            Job ID of the DDMut job
+
+        wait_time (int, optional):
+            Time to wait (in seconds) before retrieving the result
 
     Returns:
-        str: Result of the DDMut job
+        result (dict):
+            Result of the DDMut job
     """
 
     ddmut_result_url = f"{DDMUT_URL}/api/prediction_single"
@@ -111,38 +127,54 @@ def get_ddmut_pse_session(
     """ Retrieve the PyMOL session file for a DDMut job
 
     Args:
-        job_id (str): Job ID of the DDMut job
-        chain_id (str): Chain ID in the PDB
-        mutation (str): Mutation in the format 'A123B' where A is the original
-        which (str, optional): Which structure to retrieve
-            ('mt' for mutant, 'wt' for wild-type)
+
+        job_id (str):
+            Job ID of the DDMut job
+
+        chain_id (str):
+            Chain ID in the PDB
+
+        mutation (str):
+            Mutation in the format 'A123B' where A is the original residue,
+            123 is the position, and B is the new residue
+
+        which (str, optional):
+            Which structure to retrieve ('mt' for mutant, 'wt' for wild-type)
 
     Returns:
-        bytes: Content of the PyMOL session file
+
+        pse_session (bytes):
+            Content of the PyMOL session file
     """
 
-    ddmut_pse_url = f"{DDMUT_URL}/download_pymol_session/{job_id}/{chain_id}/{mutation}/{which}"
+    ddmut_pse_url = (
+        f"{DDMUT_URL}/download_pymol_session/{job_id}/{chain_id}/{mutation}/{which}"
+    )
     print(f"Fetching pymol session from {ddmut_pse_url}")
 
     response = req_sess.get(ddmut_pse_url)
     if response.status_code != 200:
         raise Exception(
-            f"DDMut pse session retrieval failed with status code {response.status_code}: {response.text}"
+            f"""DDMut pse session retrieval failed with status code
+            {response.status_code}: {response.text}"""
         )
     pse_session = response.content
 
     return pse_session
 
-def save_pdb_file(
-    pse_file_path: str,
-):
+def pse_to_pdb(pse_file_path: str):
     """ Save the PDB file from a PyMOL session file
 
     Args:
-        pse_file_path (str): Path to the PyMOL session file
+
+        pse_file_path (str):
+            Path to the PyMOL session file
     """
 
-    assert os.path.exists(pse_file_path), f"PyMOL session file {pse_file_path} does not exist."
+    assert os.path.exists(pse_file_path); (
+        f"""{pse_file_path} does not exist.
+        Use `get_ddmut_pse_session` to fetch the PyMOL session first."""
+    )
 
     pymol_cmd = (
         f"pymol -cq {pse_file_path} "
@@ -154,10 +186,12 @@ def save_pdb_file(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
-    stdout, stderr = process.communicate()
+    _stdout, stderr = process.communicate()
+
     if process.returncode != 0:
         raise Exception(
-            f"Saving PDB from PyMOL session failed with error: {stderr.decode('utf-8')}"
+            f"""Saving PDB from PyMOL session failed with error:
+            {stderr.decode('utf-8')}"""
         )
     else:
         print(f"Saved PDB file to {pse_file_path.replace('.pse', '.pdb')}")
@@ -180,7 +214,8 @@ if __name__ == "__main__":
         type=str,
         required=False,
         default="L485F",
-        help="Mutation in the format 'A123B' where A is the original residue, 123 is the position, and B is the new residue",
+        help="Mutation in the format 'A123B' where A is the original residue, \
+            123 is the position, and B is the new residue",
     )
     parser.add_argument(
         "--chain_id",
@@ -295,4 +330,4 @@ if __name__ == "__main__":
     # Save the mutant PDB file
     ###########################################################################
     if args.save_pdb:
-        save_pdb_file(pse_file_path)
+        pse_to_pdb(pse_file_path)

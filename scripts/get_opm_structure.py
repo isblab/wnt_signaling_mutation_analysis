@@ -4,9 +4,16 @@ import os
 
 req_sess = request_session(max_retries=3)
 
-def get_opm_structure(
-    pdb_id: str,
-):
+def get_opm_pdb(pdb_id: str) -> bytes:
+    """ Fetches the PDB structure of a membrane protein from the OPM database
+    with membrane boundaries.
+
+    Args:
+        pdb_id (str): PDB ID of the protein.
+
+    Returns:
+        bytes: Content of the PDB file.
+    """
 
     opm_pdb_url = f"https://biomembhub.org/shared/opm-assets/pdb/{pdb_id.lower()}.pdb"
 
@@ -14,10 +21,12 @@ def get_opm_structure(
 
     if response.status_code != 200:
         raise Exception(
-            f"OPM structure fetch failed with status code {response.status_code}: {response.content}"
+            f"""Fetching structure from OPM database failed with status code
+            {response.status_code}: {response.content}"""
         )
 
     return response.content
+
 
 if __name__ == "__main__":
 
@@ -47,7 +56,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    pdb_content = get_opm_structure(args.pdb_id)
+    pdb_content = get_opm_pdb(args.pdb_id)
 
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -58,7 +67,8 @@ if __name__ == "__main__":
 
     if os.path.exists(opm_pdb_path) and not args.overwrite:
         print(
-            f"OPM structure for {args.pdb_id} already exists at {opm_pdb_path}. Use --overwrite to replace."
+            f"""OPM structure for {args.pdb_id} already exists at {opm_pdb_path}.
+            Use --overwrite to replace."""
         )
         exit(0)
 
