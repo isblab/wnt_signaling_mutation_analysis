@@ -79,4 +79,4 @@ if __name__ == "__main__":
 
         print(f"Running Docker command for {result_head}:\n{docker_command}\n")
         os.system(docker_command)
-
+        print("=" * 100 + "\n")

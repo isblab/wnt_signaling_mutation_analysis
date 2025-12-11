@@ -2,19 +2,19 @@ open 6BD4
 select protein
 del ~sel
 altlocs clean
-# save ../output/processed_structures/[NAME]_clean.pdb
+# save ./output/processed_structures/[NAME]_clean.pdb
 del #1/A:1001-1054
 addh #1 hbond false
-save ../output/processed_structures/[NAME]_hydrogenated.pdb
+save ./output/processed_structures/[NAME]_hydrogenated.pdb
 close all
 
 open 7DRT
 select protein
 del ~sel
 altlocs clean
-# save ../output/processed_structures/[NAME]_clean.pdb
+# save ./output/processed_structures/[NAME]_clean.pdb
 del #1/A
 changechains #1/B A
 addh #1 hbond false
-save ../output/processed_structures/[NAME]_hydrogenated.pdb
+save ./output/processed_structures/[NAME]_hydrogenated.pdb
 close all
