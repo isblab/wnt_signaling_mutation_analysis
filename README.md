@@ -44,8 +44,8 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
   ```bash
   python scripts/fetch_best_structures.py \
-      --input ../input/config.yaml \
-      --output ../output/best_structures.csv \
+      --input input/config.yaml \
+      --output output/best_structures.csv \
       --overwrite
   ```
 
@@ -78,14 +78,38 @@ Analyzing structural effects of mutations involved in WNT signaling.
 - This will generate the PDB files required for Arpeggio web server in the
   `../output/processed_structures/` directory.
 
-### Generating mutant structures using Missense3D-TM
+### Generating mutant structures using DDMut
+
+- Use the `get_mutant_structure.py` script to generate mutant structures
+  using DDMut API (https://biosig.lab.uq.edu.au/ddmut/api).
+
+  ```bash
+  python scripts/get_mutant_structure.py \
+      --pdb_path ./output/processed_structures/6bd4_hydrogenated.pdb \
+      --mutation L485F \
+      --chain_id A \
+      --output_dir ./output/ddmut \
+      --suffix 6BD4 \
+      --wait_time 120 \
+      --save_pdb
+  ```
+
+- Change the `--pdb_path`, `--mutation`, `--chain_id`, `--output_dir`,
+  `--suffix`, and `--job_id` arguments accordingly.
+
+- Alternatively, use the web server at
+  `https://biosig.lab.uq.edu.au/ddmut/` to get the mutant structures.
+
+### Generating mutant structures using Missense3D-TM (deprecated)
 
 - Upload the prepared PDB files to the Missense3D-TM web server
-  (https://missense3d.bc.ic.ac.uk/) to generate mutant structures.
+  (https://missense3d.bc.ic.ac.uk/) to get the mutant structures.
 
 - Download and extract the zipped results. You will find the mutant PDB files in
   the `SCWRL/` directory inside the extracted folder as `<MUTATION>_<filename>.pdb`
   if you uploaded the wild-type structure as `<filename>.pdb`.
+
+### Processing mutant structures
 
 - Prepare a ChimeraX script `postprocess.cxc` to postprocess the
   downloaded mutant PDB files. See the `scripts/postprocess.cxc` file for
