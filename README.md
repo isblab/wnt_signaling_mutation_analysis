@@ -110,24 +110,14 @@ Analyzing structural effects of mutations involved in WNT signaling.
 - Alternatively, use the web server at
   `https://biosig.lab.uq.edu.au/ddmut/` to get the mutant structures.
 
-<style>
-  .strikethrough {
-    text-decoration: line-through;
-  }
-</style>
-
 ### Generating mutant structures using Missense3D-TM (deprecated)
 
-<span class="strikethrough">
+- ~~Upload the prepared PDB files to the [Missense3D-TM](https://missense3d.bc.ic.ac.uk/)
+  web server to get the mutant structures.~~
 
-- Upload the prepared PDB files to the [Missense3D-TM](https://missense3d.bc.ic.ac.uk/)
-  web server to get the mutant structures.
-
-- Download and extract the zipped results. You will find the mutant PDB files in
+- ~~Download and extract the zipped results. You will find the mutant PDB files in
   the `SCWRL/` directory inside the extracted folder as `<MUTATION>_<filename>.pdb`
-  if you uploaded the wild-type structure as `<filename>.pdb`.
-
-</span>
+  if you uploaded the wild-type structure as `<filename>.pdb`.~~
 
 ### Processing mutant structures
 
