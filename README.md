@@ -2,20 +2,18 @@
 
 Analyzing structural effects of mutations involved in WNT signaling.
 
-## Requirements
+## Requirements/Dependencies
 - [ChimeraX](https://www.cgl.ucsf.edu/chimerax/)
 - [IMP_Toolbox](https://github.com/isblab/IMP_Toolbox)
 - [Arpeggio (Docker version)](https://github.com/harryjubb/arpeggio?tab=readme-ov-file#using-the-public-docker-image)
+- [PyMol](https://pymol.org/)
+- [DDMut](https://biosig.lab.uq.edu.au/ddmut/api)
 - Python 3.12+
 - See `requirements.txt` for required Python packages
 
 - Set up an alias for ChimeraX in your bash profile. Example:
   ```bash
   alias chimerax="flatpak run edu.ucsf.rbvi.ChimeraX"
-  ```
-- export PYTHONPATH to include this repository. Example:
-  ```bash
-  export PYTHONPATH="/path/to/wnt_signaling_mutation_analysis:$PYTHONPATH"
   ```
 
 ## Workflow
@@ -119,13 +117,16 @@ Analyzing structural effects of mutations involved in WNT signaling.
 </style>
 
 ### Generating mutant structures using Missense3D-TM (deprecated)
+
 <span class="strikethrough">
+
 - Upload the prepared PDB files to the [Missense3D-TM](https://missense3d.bc.ic.ac.uk/)
   web server to get the mutant structures.
 
 - Download and extract the zipped results. You will find the mutant PDB files in
   the `SCWRL/` directory inside the extracted folder as `<MUTATION>_<filename>.pdb`
   if you uploaded the wild-type structure as `<filename>.pdb`.
+
 </span>
 
 ### Processing mutant structures
