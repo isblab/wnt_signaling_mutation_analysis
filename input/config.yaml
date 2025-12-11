@@ -27,8 +27,8 @@ arpeggio_results:
       - WLS
     type: wildType
     selections:
-      - /B/234/
-      - /B/354/
+      - /A/234/
+      - /A/354/
     pdb_id: 7drt
 
   W234C_7drt_hydrogenated:
@@ -38,7 +38,7 @@ arpeggio_results:
     mutations:
       - W234C
     selections:
-      - /B/234/
+      - /A/234/
 
   M354T_7drt_hydrogenated:
     proteins:
@@ -47,39 +47,4 @@ arpeggio_results:
     mutations:
       - M354T
     selections:
-      - /B/354/
-
-  # minnesota-november-ten:
-  #   proteins:
-  #     - FZD4
-  #   type: wildType
-  #   selections:
-  #     - /A/485/
-
-  # vermont-helium-august:
-  #   proteins:
-  #     - FZD4
-  #   type: mutant
-  #   mutations:
-  #     - L485F
-  #   selections:
-  #     - /A/485/
-
-  # three-six-red:
-  #   proteins:
-  #     - WLS
-  #   type: wildType
-  #   selections:
-  #     - /B/234/
-  #     - /B/354/
-
-  # september-triple-kitten:
-  #   proteins:
-  #     - WLS
-  #   type: mutant
-  #   mutations:
-  #     - W234C
-  #     - M354T
-  #   selections:
-  #     - /B/234/
-  #     - /B/354/
+      - /A/354/
