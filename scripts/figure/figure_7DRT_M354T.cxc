@@ -16,7 +16,7 @@ hide #4-5
 set bgColor white
 lighting soft
 lighting shadows false
-label #1/A:354 offset 0,0,0 color royalblue
+label #1/A:354 offset -0.8,0,0 color royalblue height 0.8
 view name M354T_7DRT
 clip near off
 clip near -25
