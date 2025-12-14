@@ -1,0 +1,21 @@
+open ./output/arpeggio_docker_results/6bd4_hydrogenated/6bd4_hydrogenated_hydrogenated.pdb
+open ./output/opm_structures/6bd4_opm.pdb
+set bgColor white
+col #1/A darkgray target r
+mm #1 to #2
+turn X -90
+view orient
+select ::name="DUM"
+show sel
+select add #1
+hide ~sel
+hide ~sel r
+hide #!1.1 models
+sel clear
+lighting soft
+lighting shadows false
+col #1/A:485 purple
+view matrix camera 0.98481,0,-0.17365,-44.397,-0.17365,1.1102e-16,-0.98481,-257.26,1.9279e-17,1,1.0934e-16,4.8989
+camera ortho
+save ./figures/6BD4_full.png width 1979 height 1112 supersample 3 transparentBackground true
+camera mono

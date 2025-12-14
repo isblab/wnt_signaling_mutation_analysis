@@ -1,11 +1,12 @@
 open ./output/arpeggio_docker_results/M354T_7drt_hydrogenated/M354T_7drt_hydrogenated_hydrogenated.pdb
 del H
-runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_contacts.cxc
-runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_markers.cxc
-runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_ari.cxc
+# runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_contacts.cxc
+# runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_markers.cxc
+# runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_ari.cxc
 # runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_ri.cxc
 view matrix camera 0.30442,0.92965,-0.20756,122.35,0.78513,-0.36827,-0.49795,94.924,-0.53936,-0.011377,-0.842,75.968
-col #1/A:354 royalblue
+col #1/A silver target r
+col #1/A:354 purple
 sel #1/A:350,354,298,361,358,355,351
 show sel s
 mlp sel
@@ -16,14 +17,14 @@ hide #4-5
 set bgColor white
 lighting soft
 lighting shadows false
-label #1/A:354 offset -0.8,0,0 color royalblue height 0.8
+label #1/A:354 offset -1.2,0,0 color purple height 1.1
 view name M354T_7DRT
 clip near off
 clip near -25
 clip far off
 clip far 2
 sel #1/A:354
-graphics selection color royalblue width 3
+graphics selection color purple width 3
 ui tool show "Side View"
 save ./figures/7DRT_M354T.png width 1979 height 1112 supersample 3
 save ./figures/M354T_7drt_hydrogenated.cxs

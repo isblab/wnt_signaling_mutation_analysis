@@ -3,7 +3,7 @@ import argparse
 import yaml
 import os
 import warnings
-from arpeggio_constants import DOCKER_BASE_COMMAND, DOCKER_CONTAINER_PATH
+from arpeggio_constants import DOCKER_BASE_COMMAND
 
 if __name__ == "__main__":
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     args = args.parse_args()
 
     docker_base_command = Template(DOCKER_BASE_COMMAND)
-    container_path = DOCKER_CONTAINER_PATH
+    container_path = os.path.abspath(args.processed_structures_dir)
 
     ###########################################################################
     # Load input configuration
@@ -52,10 +52,8 @@ if __name__ == "__main__":
     for result_head, result_metadata in arpeggio_results.items():
 
         path_to_mount = os.path.join(docker_result_dir, result_head)
+        processed_struct_path = os.path.join(container_path, f"{result_head}.pdb")
 
-        processed_struct_path = os.path.join(
-            os.path.abspath(args.processed_structures_dir), f"{result_head}.pdb"
-        )
         if not os.path.isfile(processed_struct_path):
             warnings.warn(
                 f"Processed structure file not found for \
@@ -70,7 +68,7 @@ if __name__ == "__main__":
         docker_command = docker_base_command.substitute(
             path_to_mount=path_to_mount,
             container_path=container_path,
-            input_pdb_path=os.path.join(container_path, f"{result_head}.pdb"),
+            input_pdb_path=processed_struct_path,
         )
 
         arpeggio_sel = " ".join(result_metadata.get("selections", [])) or ""

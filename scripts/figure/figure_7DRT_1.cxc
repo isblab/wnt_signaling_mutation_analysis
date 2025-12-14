@@ -5,9 +5,15 @@ runscript ./output/input_to_chimerax/7drt_hydrogenated_markers.cxc
 runscript ./output/input_to_chimerax/7drt_hydrogenated_ari.cxc
 runscript ./output/input_to_chimerax/7drt_hydrogenated_ri.cxc
 camera mono
-view matrix camera 0.52624,0.71629,0.45825,165.97,-0.14546,-0.45514,0.87846,186,0.8378,-0.52894,-0.13532,124.6
-col #1/A:234 royalblue
-hide #1.2-10
+# view matrix camera 0.52624,0.71629,0.45825,165.97,-0.14546,-0.45514,0.87846,186,0.8378,-0.52894,-0.13532,124.6
+# view matrix camera 0.17555,0.68458,0.70748,177.88,-0.72142,-0.39954,0.56562,170.64,0.66988,-0.60969,0.42373,150.9
+# view matrix camera 0.27381,0.66671,0.69319,177.21,-0.69569,-0.36038,0.62141,173.26,0.66412,-0.6524,0.36515,148.14
+view matrix camera 0.24148,0.84967,0.46876,165.99,-0.73565,-0.15474,0.65945,175.17,0.63286,-0.5041,0.58769,159
+col #1/A silver target r
+col #1/A orange target a
+col #1/A:234 purple
+color #1/A:234,478,237,230 byhetero
+hide #1.1-8
 show #1.3
 transparency #1.3 50 target p
 sel #1/A:234,478,237,230
@@ -18,39 +24,21 @@ hide sel
 sel #2
 select subtract #2/M:1@M/M:4@M/M:5@M/M:7@M
 hide sel
-hide #4-5
+# C-pi
+color #3 royalblue models
+# S-pi
+col #4 #f9f06bff models
+sel #1/A:25-37
+hide sel r
 set bgColor white
 lighting soft
 lighting shadows false
-label #1/A:234 offset 2.5,-1.5,0 color royalblue
-label #1/A:478 offset -1.2,0.6,0
-label #1/A:237 offset 3.0,-1.1,-1.9
-label #1/A:230 offset 1.0,-1.3,0
+label #1/A:234 offset -8.1,-1,0 color purple height 1
+label #1/A:478 offset 1,-0.5,0 height 1
+label #1/A:237 offset -6.0,-1,-1.9 height 1
+label #1/A:230 offset 1.0,-1.6,0 height 1
 view name 7DRT
-clip near off
-clip near -21
-clip far off
-clip far 5
-ui tool show "Side View"
+clip near off; clip near -11; clip far off; clip far 7
+# ui tool show "Side View"
 save ./figures/7DRT_1.png width 1979 height 1112 supersample 3
 save ./figures/7drt_hydrogenated_1.cxs
-close all
-open ./output/arpeggio_docker_results/7drt_hydrogenated/7drt_hydrogenated_hydrogenated.pdb
-open ./output/opm_structures/7drt_opm.pdb
-mm #1 to #2.1
-view orient
-turn X 90
-select ::name="DUM"
-show sel
-select add #1
-hide ~sel
-hide ~sel r
-hide #!1.1 models
-sel clear
-lighting soft
-lighting shadows false
-col #1/A:234,354 royalblue
-view matrix camera 0.98481,5.2503e-09,-0.17365,-57.265,0.17365,1.3739e-09,0.98481,332.24,1.0219e-08,-1,4.4132e-10,11.326
-camera ortho
-save ./figures/7DRT_full.png width 1979 height 1112 supersample 4 transparentBackground true
-camera mono

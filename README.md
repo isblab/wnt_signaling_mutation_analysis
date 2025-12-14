@@ -110,19 +110,6 @@ Analyzing structural effects of mutations involved in WNT signaling.
 - Alternatively, use the web server at
   `https://biosig.lab.uq.edu.au/ddmut/` to get the mutant structures.
 
-### Generating mutant structures using Missense3D-TM (deprecated)
-
-<del>
-
-- Upload the prepared PDB files to the [Missense3D-TM](https://missense3d.bc.ic.ac.uk/)
-  web server to get the mutant structures.
-
-- Download and extract the zipped results. You will find the mutant PDB files in
-  the `SCWRL/` directory inside the extracted folder as `<MUTATION>_<filename>.pdb`
-  if you uploaded the wild-type structure as `<filename>.pdb`.
-
-</del>
-
 ### Processing mutant structures
 
 - Prepare a ChimeraX script `postprocess.cxc` to postprocess the
@@ -131,7 +118,7 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
 > [!IMPORTANT]
 > This step is necessary because Arpeggio may not properly add hydrogens
-> to the structures. And also, we want to clean up the structures by removing
+> to the structures. Additionally, we want to clean up the structures by removing
 > non-protein atoms and cleaning alt-loc atoms.
 
 - Run the postprocessing script in ChimeraX CLI as follows:
@@ -149,13 +136,6 @@ Analyzing structural effects of mutations involved in WNT signaling.
 - Set up the Arpeggio docker image by following the instructions at
   [Using the public Docker image (Arpeggio)](https://github.com/harryjubb/arpeggio?tab=readme-ov-file#using-the-public-docker-image).
 
-- Copy the directory `output/processed_structures/` to the container directory.
-  (On linux systems, the container directory is `/run`)
-
-  ```bash
-  sudo cp -r ../output/processed_structures/ /run
-  ```
-
 - We use docker version of Arpeggio to analyze inter-atomic interactions. Run
   the following command.
 
@@ -171,15 +151,6 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
 > [!NOTE]
 > You need `sudo` privileges to run the docker command.
-
-> [!CAUTION]
-> Analysis of all possible interactions may take a long time.
-> You may provide selection as follows to only analyze interactions involving
-> the mutated residue:
-> - For FZD4, provide selection: `/A/485/`
-> - For WLS, provide selection: `/B/234/` and `/B/354/`
->
-> See the `input/config.yaml` file for reference.
 
 ### Analyzing changes in inter-atomic interactions
 
@@ -197,12 +168,12 @@ Analyzing structural effects of mutations involved in WNT signaling.
   ```
 
 - `r` flag represents `result_head` which is the directory name in the
-  `../output/arpeggio_docker_results/` containing the Arpeggio results.
+  `output/arpeggio_docker_results/` containing the Arpeggio results.
 
 - `l` flag represents the analysis level. It can be `atom` or `residue`.
 
 - You will find the analysis results (csv file) in the specified output directory.
-  i.e., `../output/pairwise_interactions`.
+  i.e., `output/pairwise_interactions`.
 
 - If you used `-c` flag, you will also get ChimeraX `cxc` files to visualize the
   inter-atomic interactions.
@@ -223,3 +194,16 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
 > [!TIP]
 > You can modify and use `meta_wrapper.sh` script to run all these steps sequentially.
+
+### References
+
+- Cheng, J., Guido Novati, J. Pan, C. Bycroft, Akvilė Žemgulytė, T. Applebaum, A. Pritzel, Lai Hong Wong, Michał Zieliński, T. Sargeant, R.G. Schneider, A.W. Senior, J. Jumper, Demis Hassabis, P. Kohli, and Žiga Avsec. 2023. Accurate proteome-wide missense variant effect prediction with AlphaMissense. Science. 381. doi:https://doi.org/10.1126/science.adg7492.
+
+- Jubb, H.C., A.P. Higueruelo, B. Ochoa-Montaño, W.R. Pitt, D.B. Ascher, and T.L. Blundell. 2017. Arpeggio: A Web Server for Calculating and Visualising Interatomic Interactions in Protein Structures. Journal of Molecular Biology. 429:365–371. doi:https://doi.org/10.1016/j.jmb.2016.12.004.
+
+- Lomize, M.A., I.D. Pogozheva, H. Joo, H.I. Mosberg, and A.L. Lomize. 2011. OPM database and PPM web server: resources for positioning of proteins in membranes. Nucleic Acids Research. 40:D370–D376. doi:https://doi.org/10.1093/nar/gkr703.
+
+- Meng, E.C., T.D. Goddard, E.F. Pettersen, G.S. Couch, Z.J. Pearson, J.H. Morris, and T.E. Ferrin. 2023. UCSF ChimeraX: Tools for Structure Building and Analysis. Protein Science: A Publication of the Protein Society. 32:e4792. doi:https://doi.org/10.1002/pro.4792.
+
+- Zhou, Y., Q. Pan, Douglas, C.H.M. Rodrigues, and D.B. Ascher. 2023. DDMut: predicting effects of mutations on protein stability using deep learning. Nucleic Acids Research. 51. doi:https://doi.org/10.1093/nar/gkad472.
+

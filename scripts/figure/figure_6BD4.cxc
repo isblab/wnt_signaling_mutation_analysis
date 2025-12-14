@@ -6,11 +6,14 @@ runscript ./output/input_to_chimerax/6bd4_hydrogenated_ari.cxc
 runscript ./output/input_to_chimerax/6bd4_hydrogenated_ri.cxc
 camera mono
 view matrix camera 0.60023,-0.3048,0.73946,19.283,0.019721,0.9299,0.36729,17.872,-0.79958,-0.20588,0.56416,6.9288
-col #1/A:485 royalblue
+col #1/A silver target r
+col #1/A orange target a
+color #1/A:485 purple
+color #1/A:227,265,269,485,488 byhetero
 hide #1.2-10
 show #1.6
 transparency #1.6 50 target p
-sel #1/A:265,269,485,488
+sel #1/A:227,265,269,485,488
 show sel a
 sel ~sel
 sel subtract #2
@@ -18,16 +21,22 @@ hide sel
 sel #2
 select subtract #2/M:4@M/M:5@M
 hide sel
-hide #4-5
+# hide #4-5
+# C-pi
+# color #3 royalblue models
+# D-pi
+# color #4 lightblue models
+sel #1/A:307-323
+hide sel r
 set bgColor white
 lighting soft
 lighting shadows false
-label #1/A:485 offset -0.2,-1.2,0 color royalblue
-# label #1/A:227 offset -1.2,-0.2,0
-label #1/A:489 offset 0.2,1.5,0
-label #1/A:269 offset -2,0.3,0
+label #1/A:485 offset -0.2,-1.2,0 color purple height 1
+# label #1/A:227 offset -1.2,-0.2,0 height 1
+label #1/A:489 offset 0.2,0.5,0 height 1
+label #1/A:269 offset -2,0.3,0 height 1
 # label #1/A:488 offset -2.5,-0.2,0
-label #1/A:265 offset -2.5,1.5,0
+label #1/A:265 offset -4.9,2,0 height 1
 view name 6BD4
 clip near off
 clip near -16
@@ -36,23 +45,3 @@ clip far 10
 # ui tool show "Side View"
 save ./figures/6BD4.png width 1979 height 1112 supersample 3
 save ./figures/6bd4_hydrogenated.cxs
-close all
-open ./output/arpeggio_docker_results/6bd4_hydrogenated/6bd4_hydrogenated_hydrogenated.pdb
-open ./output/opm_structures/6bd4_opm.pdb
-mm #1 to #2
-turn X -90
-view orient
-select ::name="DUM"
-show sel
-select add #1
-hide ~sel
-hide ~sel r
-hide #!1.1 models
-sel clear
-lighting soft
-lighting shadows false
-col #1/A:485 royalblue
-view matrix camera 0.98481,0,-0.17365,-44.397,-0.17365,1.1102e-16,-0.98481,-257.26,1.9279e-17,1,1.0934e-16,4.8989
-camera ortho
-save ./figures/6BD4_full.png width 1979 height 1112 supersample 3 transparentBackground true
-camera mono

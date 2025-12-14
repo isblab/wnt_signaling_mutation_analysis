@@ -1,0 +1,20 @@
+open ./output/arpeggio_docker_results/7drt_hydrogenated/7drt_hydrogenated_hydrogenated.pdb
+open ./output/opm_structures/7drt_opm.pdb
+col #1/A silver target r
+mm #1 to #2.1
+view orient
+turn X 90
+select ::name="DUM"
+show sel
+select add #1
+hide ~sel
+hide ~sel r
+hide #!1.1 models
+sel clear
+lighting soft
+lighting shadows false
+col #1/A:234,354 purple
+view matrix camera 0.98481,5.2503e-09,-0.17365,-57.265,0.17365,1.3739e-09,0.98481,332.24,1.0219e-08,-1,4.4132e-10,11.326
+camera ortho
+save ./figures/7DRT_full.png width 1979 height 1112 supersample 4 transparentBackground true
+camera mono

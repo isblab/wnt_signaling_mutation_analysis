@@ -9,6 +9,9 @@ source ~/.bash_profile
 source ~/.bashrc
 shopt -s expand_aliases
 
+###############################################################################
+# Find best structures for FZD4 and WLS
+###############################################################################
 python scripts/fetch_best_structures.py \
 --input input/config.yaml \
 --output output/best_structures.csv \
@@ -25,12 +28,18 @@ fi
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
 
+###############################################################################
+# Preprocess structures using ChimeraX
+###############################################################################
 echo "Running ChimeraX preprocessing script..."
 chimerax --nogui --silent --exit --script scripts/preprocess.cxc
 echo "Preprocessing completed."
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
 
+###############################################################################
+# Generate mutant structures using DDMut
+###############################################################################
 echo "Generating mutant structures using DDMut..."
 
 python scripts/get_mutant_structure.py \
@@ -67,22 +76,18 @@ echo "Mutant structure generation completed."
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
 
+###############################################################################
+# Postprocess mutant structures using ChimeraX
+###############################################################################
 echo "Running ChimeraX postprocessing script..."
 chimerax --nogui --silent --exit --script scripts/postprocess.cxc
 echo "Postprocessing completed."
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
-echo "Copying processed structures to container directory..."
-sudo cp -r ./output/processed_structures/ /run
-echo "Copy completed."
 
-echo -n -e "$(printf '*%.0s' {1..100}) \n"
-
-if [ ! -d /run/processed_structures ]; then
-    echo "Processed structures directory not found in container directory. Exiting..."
-    exit 1
-fi
-
+###############################################################################
+# Run Arpeggio for analysing inter-atomic interactions
+###############################################################################
 echo "Running Arpeggio Docker wrapper script..."
 python scripts/arpeggio_docker_wrapper.py \
 -i ./input/config.yaml \
@@ -92,6 +97,9 @@ echo "Arpeggio analysis completed."
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
 
+###############################################################################
+# Run Arpeggio analysis wrapper to extract interactions in WT and mutant
+###############################################################################
 echo "Running Arpeggio analysis wrapper script..."
 python scripts/arpeggio_analysis_wrapper.py \
 -i ./input/config.yaml \
@@ -136,9 +144,14 @@ python scripts/arpeggio_analysis_wrapper.py \
 echo "Arpeggio interaction analysis completed."
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
 
+###############################################################################
+# Generate figure assets using ChimeraX
+###############################################################################
 chimerax --exit --script ./scripts/figure/figure_6BD4.cxc
+chimerax --exit --script ./scripts/figure/figure_6BD4_full.cxc
 chimerax --exit --script ./scripts/figure/figure_7DRT_1.cxc
-chimerax --exit --script ./scripts/figure/figure_7DRT_1.cxc
+chimerax --exit --script ./scripts/figure/figure_7DRT_2.cxc
+chimerax --exit --script ./scripts/figure/figure_7DRT_full.cxc
 chimerax --exit --script ./scripts/figure/figure_6BD4_L485F.cxc
 chimerax --exit --script ./scripts/figure/figure_7DRT_W234C.cxc
 chimerax --exit --script ./scripts/figure/figure_7DRT_M354T.cxc
