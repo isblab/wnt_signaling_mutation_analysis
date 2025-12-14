@@ -184,7 +184,7 @@ Analyzing structural effects of mutations involved in WNT signaling.
   for the analysis. Example:
 
   ```bash
-  chimerax scripts/figures/figure_6BD4.cxc
+  chimerax --script scripts/figures/figure_6BD4.cxc
   ```
   or in ChimeraX CLI:
   ```bash
