@@ -197,13 +197,16 @@ Analyzing structural effects of mutations involved in WNT signaling.
 
 ### References
 
+- Armstrong, D.R., J.M. Berrisford, M.J. Conroy, A. Gutmanas, S. Anyango, P. Choudhary, A.R. Clark, J.M. Dana, M. Deshpande, R. Dunlop, P. Gane, R. Gáborová, D. Gupta, P. Haslam, J. Koča, L. Mak, S. Mir, A. Mukhopadhyay, N. Nadzirin, and S. Nair. 2020. PDBe: improved findability of macromolecular structure data in the PDB. Nucleic Acids Research. 48. doi:https://doi.org/10.1093/nar/gkz990
+
 - Cheng, J., Guido Novati, J. Pan, C. Bycroft, Akvilė Žemgulytė, T. Applebaum, A. Pritzel, Lai Hong Wong, Michał Zieliński, T. Sargeant, R.G. Schneider, A.W. Senior, J. Jumper, Demis Hassabis, P. Kohli, and Žiga Avsec. 2023. Accurate proteome-wide missense variant effect prediction with AlphaMissense. Science. 381. doi:https://doi.org/10.1126/science.adg7492.
 
 - Jubb, H.C., A.P. Higueruelo, B. Ochoa-Montaño, W.R. Pitt, D.B. Ascher, and T.L. Blundell. 2017. Arpeggio: A Web Server for Calculating and Visualising Interatomic Interactions in Protein Structures. Journal of Molecular Biology. 429:365–371. doi:https://doi.org/10.1016/j.jmb.2016.12.004.
 
-- Lomize, M.A., I.D. Pogozheva, H. Joo, H.I. Mosberg, and A.L. Lomize. 2011. OPM database and PPM web server: resources for positioning of proteins in membranes. Nucleic Acids Research. 40:D370–D376. doi:https://doi.org/10.1093/nar/gkr703.
+- Lomize, M.A., I.D. Pogozheva, H. Joo, H.I. Mosberg, and A.L. Lomize. 2012. OPM database and PPM web server: resources for positioning of proteins in membranes. Nucleic Acids Research. 40:D370–D376. doi:https://doi.org/10.1093/nar/gkr703.
 
 - Meng, E.C., T.D. Goddard, E.F. Pettersen, G.S. Couch, Z.J. Pearson, J.H. Morris, and T.E. Ferrin. 2023. UCSF ChimeraX: Tools for Structure Building and Analysis. Protein Science: A Publication of the Protein Society. 32:e4792. doi:https://doi.org/10.1002/pro.4792.
 
-- Zhou, Y., Q. Pan, Douglas, C.H.M. Rodrigues, and D.B. Ascher. 2023. DDMut: predicting effects of mutations on protein stability using deep learning. Nucleic Acids Research. 51. doi:https://doi.org/10.1093/nar/gkad472.
+- Váradi, M., D. Bertoni, P. Magaña, U. Paramval, I. Pidruchna, M. Radhakrishnan, M. Tsenkov, S. Nair, M. Mirdita, J. Yeo, O. Kovalevskiy, K. Tunyasuvunakool, A. Laydon, A. Žídek, H. Tomlinson, D. Hariharan, J. Abrahamson, T. Green, J. Jumper, and E. Birney. 2024. AlphaFold Protein Structure Database in 2024: providing structure coverage for over 214 million protein sequences. Nucleic Acids Research. 52. doi:https://doi.org/10.1093/nar/gkad1011.
 
+- Zhou, Y., Q. Pan, Douglas, C.H.M. Rodrigues, and D.B. Ascher. 2023. DDMut: predicting effects of mutations on protein stability using deep learning. Nucleic Acids Research. 51. doi:https://doi.org/10.1093/nar/gkad472.
