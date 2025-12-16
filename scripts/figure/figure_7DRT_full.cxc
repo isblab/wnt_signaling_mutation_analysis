@@ -1,6 +1,7 @@
 open ./output/arpeggio_docker_results/7drt_hydrogenated/7drt_hydrogenated_hydrogenated.pdb
 open ./output/opm_structures/7drt_opm.pdb
-col #1/A silver target r
+set bgColor white
+col #1/A tan target r
 mm #1 to #2.1
 view orient
 turn X 90

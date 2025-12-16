@@ -1,7 +1,7 @@
 open ./output/arpeggio_docker_results/6bd4_hydrogenated/6bd4_hydrogenated_hydrogenated.pdb
 open ./output/opm_structures/6bd4_opm.pdb
 set bgColor white
-col #1/A darkgray target r
+col #1/A tan target r
 mm #1 to #2
 turn X -90
 view orient

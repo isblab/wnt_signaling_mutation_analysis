@@ -6,12 +6,13 @@ runscript ./output/input_to_chimerax/W234C_7drt_hydrogenated_ari.cxc
 # runscript ./output/input_to_chimerax/W234C_7drt_hydrogenated_ri.cxc
 # view matrix camera 0.52624,0.71629,0.45825,165.97,-0.14546,-0.45514,0.87846,186,0.8378,-0.52894,-0.13532,124.6
 view matrix camera 0.24148,0.84967,0.46876,165.99,-0.73565,-0.15474,0.65945,175.17,0.63286,-0.5041,0.58769,159
-col #1/A silver target r
-col #1/A orange target a
+col #1/A tan target r
+col #1/A tan target a
 col #1/A:234 purple
 color #1/A:234,478,237,230 byhetero
 hide #1.1-10
-show #1.6
+# show #1.6
+select #2/M:2@M; sel add #1/A:237@SD; hide sel target p
 transparency #1.6 50 target p
 sel #1/A:234,478,237,230
 show sel a

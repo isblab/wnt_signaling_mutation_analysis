@@ -5,14 +5,15 @@ del H
 # runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_ari.cxc
 # runscript ./output/input_to_chimerax/M354T_7drt_hydrogenated_ri.cxc
 view matrix camera 0.30442,0.92965,-0.20756,122.35,0.78513,-0.36827,-0.49795,94.924,-0.53936,-0.011377,-0.842,75.968
-col #1/A silver target r
+col #1/A tan target r
 col #1/A:354 purple
 sel #1/A:350,354,298,361,358,355,351
 show sel s
-mlp sel
+mlp sel palette lipophilicity range -20,20
+key lipophilicity :-20 :0 :20 showTool false
 hide all pbonds
-sel #2
-hide sel
+# sel #2
+# hide sel
 hide #4-5
 set bgColor white
 lighting soft

@@ -6,10 +6,11 @@ runscript ./output/input_to_chimerax/6bd4_hydrogenated_ari.cxc
 runscript ./output/input_to_chimerax/6bd4_hydrogenated_ri.cxc
 camera mono
 view matrix camera 0.60023,-0.3048,0.73946,19.283,0.019721,0.9299,0.36729,17.872,-0.79958,-0.20588,0.56416,6.9288
-col #1/A silver target r
-col #1/A orange target a
+col #1/A tan target r
+col #1/A tan target a
 color #1/A:485 purple
 color #1/A:227,265,269,485,488 byhetero
+hide #2.1-6 target m
 hide #1.2-10
 show #1.6
 transparency #1.6 50 target p
@@ -21,7 +22,7 @@ hide sel
 sel #2
 select subtract #2/M:4@M/M:5@M
 hide sel
-# hide #4-5
+hide #3-4
 # C-pi
 # color #3 royalblue models
 # D-pi

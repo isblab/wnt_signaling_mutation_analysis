@@ -9,12 +9,13 @@ camera mono
 # view matrix camera 0.17555,0.68458,0.70748,177.88,-0.72142,-0.39954,0.56562,170.64,0.66988,-0.60969,0.42373,150.9
 # view matrix camera 0.27381,0.66671,0.69319,177.21,-0.69569,-0.36038,0.62141,173.26,0.66412,-0.6524,0.36515,148.14
 view matrix camera 0.24148,0.84967,0.46876,165.99,-0.73565,-0.15474,0.65945,175.17,0.63286,-0.5041,0.58769,159
-col #1/A silver target r
-col #1/A orange target a
+col #1/A tan target r
+col #1/A tan target a
 col #1/A:234 purple
 color #1/A:234,478,237,230 byhetero
 hide #1.1-8
-show #1.3
+# show #1.3
+select #2/M:5@M; sel add #1/A:237@SD; hide sel target p
 transparency #1.3 50 target p
 sel #1/A:234,478,237,230
 show sel a
