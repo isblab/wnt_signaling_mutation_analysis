@@ -14,13 +14,14 @@ hide #2.1-6 target m
 hide #1.2-10
 show #1.6
 transparency #1.6 50 target p
-sel #1/A:227,265,269,485,488
+sel #1/A:227,269,485,488
 show sel a
 sel ~sel
 sel subtract #2
 hide sel
 sel #2
-select subtract #2/M:4@M/M:5@M
+# select subtract #2/M:4@M/M:5@M
+select subtract #2/M:4@M
 hide sel
 hide #3-4
 # C-pi
@@ -37,7 +38,7 @@ label #1/A:485 offset -0.2,-1.2,0 color purple height 1
 label #1/A:489 offset 0.2,0.5,0 height 1
 label #1/A:269 offset -2,0.3,0 height 1
 # label #1/A:488 offset -2.5,-0.2,0
-label #1/A:265 offset -4.9,2,0 height 1
+# label #1/A:265 offset -4.9,2,0 height 1
 view name 6BD4
 clip near off
 clip near -16
