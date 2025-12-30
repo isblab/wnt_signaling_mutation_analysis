@@ -18,3 +18,17 @@ changechains #1/B A
 addh #1 hbond false
 save ./output/processed_structures/[NAME]_hydrogenated.pdb
 close all
+
+alphafold fetch P09544
+select protein
+del ~sel
+altlocs clean
+save ./output/processed_structures/WNT2_AFDB_hydrogenated.pdb
+close all
+
+open ./output/af_predictions/fold_wnt2_1_1to360_1/fold_wnt2_1_1to360_1_model_0.cif
+select protein
+del ~sel
+altlocs clean
+save ./output/processed_structures/WNT2_AF3_hydrogenated.pdb
+close all

@@ -48,3 +48,31 @@ arpeggio_results:
       - M354T
     selections:
       - /A/354/
+
+  WNT2_AFDB_hydrogenated:
+    proteins:
+      - WNT2
+    type: wildType
+    selections:
+      - /A/315/
+
+  T315A_WNT2_AFDB_hydrogenated:
+    proteins:
+      - WNT2
+    type: mutant
+    selections:
+      - /A/315/
+
+  WNT2_AF3_hydrogenated:
+    proteins:
+      - WNT2
+    type: wildType
+    selections:
+      - /A/315/
+
+  T315A_WNT2_AF3_hydrogenated:
+    proteins:
+      - WNT2
+    type: mutant
+    selections:
+      - /A/315/

@@ -30,3 +30,21 @@ altlocs clean
 addh #1 hbond false
 save ./output/processed_structures/[NAME].pdb
 close all
+
+open ./output/ddmut/ddmut_17670843818271983_WNT2_AFDB_T315A_mutant.pdb
+rename #1 T315A_WNT2_AFDB_hydrogenated
+select protein
+del ~sel
+altlocs clean
+addh #1 hbond false
+save ./output/processed_structures/[NAME].pdb
+close all
+
+open ./output/ddmut/ddmut_17670888274199204_WNT2_AF3_T315A_mutant.pdb
+rename #1 T315A_WNT2_AF3_hydrogenated
+select protein
+del ~sel
+altlocs clean
+addh #1 hbond false
+save ./output/processed_structures/[NAME].pdb
+close all

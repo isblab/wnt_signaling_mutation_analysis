@@ -1,0 +1,11 @@
+open ./output/arpeggio_docker_results/WNT2_AFDB_hydrogenated/WNT2_AFDB_hydrogenated.pdb
+set bgColor white
+col #1/A tan target r
+view orient
+lighting soft
+lighting shadows false
+col #1/A:315 purple
+view matrix camera 0.35801,0.24207,-0.90179,-204.44,0.93328,-0.12243,0.33765,82.978,-0.028666,-0.9625,-0.26975,-58.75
+camera ortho
+save ./figures/WNT2_full.png width 1979 height 1112 supersample 3 transparentBackground true
+camera mono

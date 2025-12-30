@@ -72,6 +72,26 @@ python scripts/get_mutant_structure.py \
 --job_id 17654360362068248 \
 --save_pdb
 
+python scripts/get_mutant_structure.py \
+--pdb_path ./output/processed_structures/WNT2_AFDB_hydrogenated.pdb \
+--mutation T315A \
+--chain_id A \
+--output_dir ./output/ddmut \
+--suffix WNT2_AFDB \
+--wait_time 120 \
+--job_id 17670843818271983 \
+--save_pdb
+
+python scripts/get_mutant_structure.py \
+--pdb_path ./output/processed_structures/WNT2_AF3_hydrogenated.pdb \
+--mutation T315A \
+--chain_id A \
+--output_dir ./output/ddmut \
+--suffix WNT2_AF3 \
+--wait_time 120 \
+--job_id 17670888274199204 \
+--save_pdb
+
 echo "Mutant structure generation completed."
 
 echo -n -e "$(printf '*%.0s' {1..100}) \n"
@@ -136,6 +156,38 @@ python scripts/arpeggio_analysis_wrapper.py \
 python scripts/arpeggio_analysis_wrapper.py \
 -i ./input/config.yaml \
 -r M354T_7drt_hydrogenated \
+-a ./output/arpeggio_docker_results/ \
+-l residue \
+-o ./output/ \
+-c
+
+python scripts/arpeggio_analysis_wrapper.py \
+-i ./input/config.yaml \
+-r WNT2_AFDB_hydrogenated \
+-a ./output/arpeggio_docker_results/ \
+-l residue \
+-o ./output/ \
+-c
+
+python scripts/arpeggio_analysis_wrapper.py \
+-i ./input/config.yaml \
+-r T315A_WNT2_AFDB_hydrogenated \
+-a ./output/arpeggio_docker_results/ \
+-l residue \
+-o ./output/ \
+-c
+
+python scripts/arpeggio_analysis_wrapper.py \
+-i ./input/config.yaml \
+-r WNT2_AF3_hydrogenated \
+-a ./output/arpeggio_docker_results/ \
+-l residue \
+-o ./output/ \
+-c
+
+python scripts/arpeggio_analysis_wrapper.py \
+-i ./input/config.yaml \
+-r T315A_WNT2_AF3_hydrogenated \
 -a ./output/arpeggio_docker_results/ \
 -l residue \
 -o ./output/ \

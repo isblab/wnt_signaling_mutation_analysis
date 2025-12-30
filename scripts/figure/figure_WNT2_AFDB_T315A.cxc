@@ -1,0 +1,29 @@
+open ./output/arpeggio_docker_results/T315A_WNT2_AFDB_hydrogenated/T315A_WNT2_AFDB_hydrogenated.pdb
+del H
+runscript ./output/input_to_chimerax/T315A_WNT2_AFDB_hydrogenated_contacts.cxc
+runscript ./output/input_to_chimerax/T315A_WNT2_AFDB_hydrogenated_markers.cxc
+camera mono
+view matrix camera -0.11878,-0.033072,-0.99237,-54.272,0.95485,0.27029,-0.1233,14.676,0.2723,-0.96221,-0.00052648,20.748
+col #1/A tan target r
+col #1/A tan target a
+color #1/A:315 purple
+color #1/A:315,345 byhetero
+sel #1/A:315,345
+hide #1.1-2
+show sel a
+sel #2
+hide sel
+set bgColor white
+lighting soft
+lighting shadows false
+label #1/A:315 offset 0.6,-2,0 color purple height 1
+# label #1/A:344 offset 0.2,0.5,0 height 1
+label #1/A:345 offset 0.2,0.8,0 height 1
+# label #1/A:346 offset -2.8,0.8,0 height 1
+view name T315A_WNT2_AFDB
+clip near off
+clip near -20
+clip far off
+clip far 8
+save ./figures/T315A_WNT2_AFDB.png width 1979 height 1112 supersample 3
+save ./figures/T315A_WNT2_AFDB_hydrogenated.cxs

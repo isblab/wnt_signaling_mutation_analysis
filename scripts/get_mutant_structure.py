@@ -60,7 +60,7 @@ def submit_ddmut_job(
         }
     )
 
-    if response.status_code != 200:
+    if response.status_code != 200 or response.json().get("message") == "Internal Server Error":
         raise Exception(
             f"""DDMut job submission failed with status code
             {response.status_code}: {response.text}"""
