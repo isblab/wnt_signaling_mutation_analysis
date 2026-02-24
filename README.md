@@ -116,11 +116,6 @@ Analyzing structural effects of mutations involved in WNT signaling.
   downloaded mutant PDB files. See the `scripts/postprocess.cxc` file for
   reference.
 
-> [!IMPORTANT]
-> This step is necessary because Arpeggio may not properly add hydrogens
-> to the structures. Additionally, we want to clean up the structures by removing
-> non-protein atoms and cleaning alt-loc atoms.
-
 - Run the postprocessing script in ChimeraX CLI as follows:
 
   ```
