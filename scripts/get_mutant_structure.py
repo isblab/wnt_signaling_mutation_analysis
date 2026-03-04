@@ -1,4 +1,5 @@
-from IMP_Toolbox.utils import request_session, write_json, read_json
+from IMP_Toolbox.utils.api_helpers import request_session
+from IMP_Toolbox.utils.file_helpers import read_json, write_json
 import argparse
 import os
 import shlex

@@ -5,7 +5,10 @@
 import os
 import yaml
 from argparse import ArgumentParser
-from IMP_Toolbox.pre_processing.structure.BestStructure import BestStructures
+from IMP_Toolbox.structure.best_structure import (
+    fetch_best_structures,
+    make_best_structures_df,
+)
 
 CONFIG_FILE = "../input/config.yaml"
 BEST_STRUCTURES_CSV = "../output/best_structures.csv"
@@ -51,16 +54,17 @@ if __name__ == "__main__":
     uniprot_ids = list(proteins_dict.values())
     uniprot_ids = [u for u in uniprot_ids if u is not None]
 
-    bs = BestStructures(uniprot_ids=uniprot_ids)
+    # bs = BestStructures(uniprot_ids=uniprot_ids)
 
-    best_structures = bs.fetch_best_structures(
+    best_structures = fetch_best_structures(
+        uniprot_ids=uniprot_ids,
         save_path=os.path.join(
             os.path.dirname(args.output),
             os.path.basename(args.output).replace(".csv", ".json")),
         overwrite=args.overwrite
     )
 
-    df = bs.make_best_structures_df(best_structures)
+    df = make_best_structures_df(best_structures)
     df.to_csv(args.output, index=False)
 
     if os.path.exists(args.output) and not args.overwrite:

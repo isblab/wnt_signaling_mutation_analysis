@@ -1,4 +1,4 @@
-from IMP_Toolbox.utils import request_session
+from IMP_Toolbox.utils.api_helpers import request_session
 import argparse
 import os
 
